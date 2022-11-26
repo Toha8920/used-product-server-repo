@@ -19,6 +19,7 @@ async function run() {
         const categoriesCollection = client.db('resaleProducts').collection('categories');
         const productsCollection = client.db('resaleProducts').collection('products')
         const usersCollection = client.db('resaleProducts').collection('users')
+        const ordersCollection = client.db('resaleProducts').collection('orders')
 
         app.get('/categories', async (req, res) => {
             const query = {};
@@ -50,6 +51,12 @@ async function run() {
         app.post('/users', async (req, res) => {
             const users = req.body;
             const result = await usersCollection.insertOne(users)
+            res.send(result)
+        });
+
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            const result = await ordersCollection.insertOne(order)
             res.send(result)
         })
 
