@@ -46,8 +46,9 @@ async function run() {
             res.send(result)
         });
 
-        app.get('/myorders', async (req, res) => {
-            const query = {};
+        app.get('/myorders/:id', async (req, res) => {
+            const email = req.params.id;
+            const query = { email: email };
             const result = await ordersCollection.find(query).toArray();
             res.send(result)
         })
@@ -114,7 +115,7 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = usersCollection.deleteOne(query);
             res.send(result)
-        })
+        });
 
     }
     finally {
