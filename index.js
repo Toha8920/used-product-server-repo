@@ -107,6 +107,13 @@ async function run() {
         app.get('/users/:email', async (req, res) => {
             const result = await usersCollection.findOne({ email: req.params.email })
             res.send(result);
+        });
+
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = usersCollection.deleteOne(query);
+            res.send(result)
         })
 
     }
