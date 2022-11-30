@@ -40,6 +40,17 @@ async function run() {
             const result = await productsCollection.find(query).toArray();
             res.send(result)
         });
+
+        app.patch('/products/:email', async (req, res) => {
+            const email = req.params.email;
+            const updateDoc = {
+                $set: {
+                    isVerified: true
+                }
+            }
+            const result = await productsCollection.updateMany({ email: email }, updateDoc, true);
+            res.send(result)
+        })
         app.get('/products/:email', async (req, res) => {
             const query = {};
             const result = await productsCollection.find({ email: req.params.email }).toArray();
